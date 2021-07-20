@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\Program Files\KomposeTool\kompose.exe convert
+    kompose.service.type: LoadBalancer
+    kompose.version: 1.4.0 (c7964e7)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: k8sconfig
+  name: k8sconfig
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: k8sconfig
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: k8sconfig
+      # annotations:
+      #   dapr.io/enabled: "true"
+      #   dapr.io/app-id: "k8sconfig"
+    spec:
+      containers:
+      - image: venkateshsrini3/k8sconfig
+        name: k8sconfig
+        env:
+        - name: AppRunIn
+          value: "cluster"
+        ports:
+        - containerPort: 80
+        resources: {}
+      restartPolicy: Always
+status: {}
