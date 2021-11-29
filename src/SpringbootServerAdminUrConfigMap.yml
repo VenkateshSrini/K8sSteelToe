@@ -1,0 +1,7 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-boot-server-admin-url-configmap
+  namespace: default
+data:
+  Spring__Boot__Admin__Client__Url: http://localhost:9090  

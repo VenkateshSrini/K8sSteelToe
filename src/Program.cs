@@ -11,6 +11,8 @@ using Steeltoe.Extensions.Configuration.Kubernetes;
 using Steeltoe.Extensions.Logging;
 using k8s;
 using k8sConfigs.Util;
+using Steeltoe.Management.Kubernetes;
+using Steeltoe.Management.Endpoint;
 
 namespace k8sConfigs
 {
@@ -23,7 +25,8 @@ namespace k8sConfigs
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureHostConfiguration(configbuilder=> {
+                .ConfigureHostConfiguration(configbuilder =>
+                {
                     configbuilder.AddJsonFile("appsettings.json");
                     configbuilder.AddEnvironmentVariables();
 
@@ -32,20 +35,24 @@ namespace k8sConfigs
                 {
                     webBuilder.UseStartup<Startup>();
                 })
-           
+
                 .ConfigureAppConfiguration((context, builder) =>
                 {
 
-                    builder.AddKubernetes(k8sConfig => {
+                    builder.AddKubernetes(k8sConfig =>
+                    {
                         k8sConfig = ConfigUtils.GetKubernetesClientConfiguration(
                             context.Configuration["AppRunIn"].ToLower());
-                       
-                    });                   
+
+                    });
                 })
                 .ConfigureLogging((builderContext, loggingBuilder) =>
                 {
                     loggingBuilder.AddDynamicConsole();
                 })
-                .AddKubernetesConfiguration();
+                .AddLoggersActuator()
+                .AddAllActuators()
+                .AddKubernetesConfiguration()
+                .AddKubernetesActuators();
     }
 }

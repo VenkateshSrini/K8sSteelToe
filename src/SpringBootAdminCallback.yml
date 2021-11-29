@@ -1,0 +1,7 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spring-boot-server-admin-bp-configmap
+  namespace: default
+data:
+  Spring__Boot__Admin__Client__BasePath: http://localhost:5046  
