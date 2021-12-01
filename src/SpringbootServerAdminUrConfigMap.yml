@@ -4,4 +4,4 @@ metadata:
   name: spring-boot-server-admin-url-configmap
   namespace: default
 data:
-  Spring__Boot__Admin__Client__Url: http://localhost:9090  
+  Spring__Boot__Admin__Client__Url: http://host.docker.internal:9090

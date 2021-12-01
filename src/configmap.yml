@@ -4,4 +4,4 @@ metadata:
   name: log-configmap
   namespace: default
 data:
-  Logging__LogLevel__Default: Trace  
+  Logging__LogLevel__Default: Debug  
